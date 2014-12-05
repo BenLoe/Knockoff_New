@@ -1,0 +1,17 @@
+name: Knockoff
+main: org.BeefSupreme.Main.Main
+version: 1.0
+description: >
+             Knockoff Game!
+commands:
+  knock:
+    description: Knockoff help.
+  knockoff:
+    description: Knockoff help.
+  leave:
+    description: Leave a fight.
+  hub:
+    description: Leave a fight.
+  spawn:
+    description: Leave a fight.
+
