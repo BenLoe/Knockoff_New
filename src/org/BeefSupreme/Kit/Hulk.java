@@ -1,6 +1,5 @@
 package org.BeefSupreme.Kit;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,20 +7,17 @@ import org.BeefSupreme.Main.Main;
 import org.BeefSupreme.Main.ParticleEffect;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.FireworkEffect.Type;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.util.Vector;
@@ -51,7 +47,6 @@ public class Hulk {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void executeBasic(Player p){
 		if (Main.Cooldown.contains(p.getName())){
 			p.sendMessage(Main.tag + ChatColor.YELLOW + "Skill still in cooldown!");
@@ -88,6 +83,8 @@ public class Hulk {
 						Block b = loc1.getBlock();
 						if (loc1.getY() == loc.getY() && !(loc1.getBlockX() == bX && loc1.getBlockZ() == bZ)){
 						loc1.getWorld().spawnFallingBlock(loc1.add(0, 1, 0), b.getType() , b.getData()).setVelocity(new Vector(0, 0.4, 0));
+						ParticleEffect.displayBlockCrack(b.getLocation(), b.getTypeId(), b.getData(), 0.2f, 0.2f, 0.2f, 10);
+						p.playSound(p.getLocation(), Sound.ANVIL_LAND, 1f, 1f);
 						b.setType(Material.AIR);
 					}
 				}
@@ -102,27 +99,27 @@ public class Hulk {
 	@SuppressWarnings("deprecation")
 	public static void executeSpecial(Location loc, Egg egg){
 		World world = loc.getWorld();
-		Location mid = loc.add(0, -2, 0);
-		Location side1 = loc.add(1, -2, 0);
-		Location side2 = loc.add(-1, -2, 1);
-		Location side3 = loc.add(0, -2, 1);
-		Location side4 = loc.add(1, -2, 1);
-		Location side5 = loc.add(-1, -2, 0);
-		Location side6 = loc.add(0, -2, -1);
-		Location side7 = loc.add(-1, -2, -1);
-		Location side8 = loc.add(1, -2, -1);
-		Location out1 = loc.add(2, -2, 0);
-		Location out12 = loc.add(2, -2, 1);
-		Location out2 = loc.add(2, -2, -1);
-		Location out3 = loc.add(0, -2, 2);
-		Location out4 = loc.add(1, -2, 2);
-		Location out5 = loc.add(-1, -2, 2);
-		Location out6 = loc.add(-2, -2, 1);
-		Location out7 = loc.add(-2, -2, 0);
-		Location out8 = loc.add(-2, -2, -1);
-		Location out9 = loc.add(1, -2, -2);
-		Location out10 = loc.add(0, -2, -2);
-		Location out11 = loc.add(-1, -2, -2);
+		Location mid = loc.add(0, -1, 0);
+		Location side1 = loc.add(1, -1, 0);
+		Location side2 = loc.add(-1, -1, 1);
+		Location side3 = loc.add(0, -1, 1);
+		Location side4 = loc.add(1, -1, 1);
+		Location side5 = loc.add(-1, -1, 0);
+		Location side6 = loc.add(0, -1, -1);
+		Location side7 = loc.add(-1, -1, -1);
+		Location side8 = loc.add(1, -1, -1);
+		Location out1 = loc.add(2, -1, 0);
+		Location out12 = loc.add(2, -1, 1);
+		Location out2 = loc.add(2, -1, -1);
+		Location out3 = loc.add(0, -1, 2);
+		Location out4 = loc.add(1, -1, 2);
+		Location out5 = loc.add(-1, -1, 2);
+		Location out6 = loc.add(-2, -1, 1);
+		Location out7 = loc.add(-2, -1, 0);
+		Location out8 = loc.add(-2, -1, -1);
+		Location out9 = loc.add(1, -1, -2);
+		Location out10 = loc.add(0, -1, -2);
+		Location out11 = loc.add(-1, -1, -2);
 		world.spawnFallingBlock(mid.add(0, 1, 0), mid.getBlock().getType(), mid.getBlock().getData()).setVelocity(new Vector(0, 1, 0));
 		world.spawnFallingBlock(side1.add(0, 1, 0), side1.getBlock().getType(), side1.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
 		world.spawnFallingBlock(side2.add(0, 1, 0), side2.getBlock().getType(), side2.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
@@ -171,7 +168,6 @@ public class Hulk {
 			}
 		}
 	}
-	@SuppressWarnings("deprecation")
 	public static void giveItems(Player p){
 		ItemStack stick = new ItemStack(Material.STICK);
 		ItemMeta stickm = stick.getItemMeta();

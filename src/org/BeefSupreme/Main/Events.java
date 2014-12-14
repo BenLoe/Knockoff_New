@@ -156,7 +156,6 @@ public class Events implements Listener{
 			}
 		}
 	}
-	@SuppressWarnings("static-access")
 	@EventHandler
 	public void playerMove(PlayerMoveEvent event){
 		Player p = event.getPlayer();

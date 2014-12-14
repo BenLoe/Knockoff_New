@@ -1,5 +1,6 @@
 name: Knockoff
 main: org.BeefSupreme.Main.Main
+depend: [BeefSupreme]
 version: 1.0
 description: >
              Knockoff Game!

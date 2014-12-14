@@ -4,7 +4,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.BeefSupreme.Main.Files;
 import org.BeefSupreme.Main.Main;
+import org.BeefSupreme.Main.ParticleEffect;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -48,9 +50,9 @@ public class Miner {
 	for (Block b : p.getLineOfSight(null, 20)){
 		if (!b.getType().equals(Material.AIR)){
 			p.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
+			ParticleEffect.displayBlockCrack(b.getLocation(), b.getTypeId(), b.getData(), 0.2f, 0.2f, 0.2f, 80);
 			b.setType(Material.AIR);
 				p.setExp(p.getExp() - 0.20f);
-			Firework(b.getLocation());
 			break;
 		}
 	}
@@ -80,7 +82,6 @@ public class Miner {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void giveItems(Player p){
 		ItemStack stick = new ItemStack(Material.STICK);
 		ItemMeta stickm = stick.getItemMeta();

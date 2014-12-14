@@ -29,17 +29,13 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.entity.TNTPrimed;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-
-public class Main extends JavaPlugin implements Listener {
+public class Main extends JavaPlugin {
 	
 	public static int NumberIngame;
 	public static String GameState = "Waiting";
@@ -69,10 +65,15 @@ public class Main extends JavaPlugin implements Listener {
 		PlayersIngame.clear();
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 			public void run(){
+				if (GameState.equals("Ingame")){
 				for (Player p : Bukkit.getOnlinePlayers()){
 					if (PlayersIngame.contains(p.getName())){
-						if (p.getExp() < 0.9F && Kit.get(p.getName()).equals("Miner")){
+						if (Kit.get(p.getName()).equals("Miner")){
+							if (p.getExp() < 0.9F){
 							p.setExp(p.getExp() + 0.025f);
+							}else{
+								p.setExp(1f);
+							}
 						}
 					}
 				if (Cooldown.contains(p.getName())){
@@ -186,10 +187,16 @@ public class Main extends JavaPlugin implements Listener {
 					Changing2.add(loc);
 				}
 			}
+			}
 		}, 10l, 2l);
 		Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new Runnable(){
 			public void run() {
 				if (getConfig().getBoolean("Enabled")){
+					for(Player p : Bukkit.getOnlinePlayers()){
+						if (p.getSaturation() < 1f){
+							p.setSaturation(1f);
+						}
+					}
 				if (GameState.equals("Waiting")){
 					NumberIngame = Bukkit.getOnlinePlayers().length;
 					if (NumberIngame >= getConfig().getInt("Playerstostart")){
@@ -265,7 +272,6 @@ public class Main extends JavaPlugin implements Listener {
 										Kit.put(p.getName(), "Miner");
 									}
 									p.sendMessage(tag + ChatColor.GREEN + "Game starting! Using kit: " + ChatColor.AQUA + Kit.get(p.getName()));
-									//TODO add stats change
 									if (Kit.get(p.getName()).equals("Miner")){
 										Miner.giveItems(p);
 									}
@@ -342,7 +348,6 @@ public class Main extends JavaPlugin implements Listener {
 					int newi = Countdown - 1;
 					if (newi == 0){
 						for (Player p : Bukkit.getOnlinePlayers()){
-							//TODO Say stat change
 							sendPlayerToMain(p);
 						}
 						GameState = "Waiting";
@@ -381,10 +386,10 @@ public class Main extends JavaPlugin implements Listener {
 						Location spawn2 = Game.getLocation("spawn2");
 						Location spawn3 = Game.getLocation("spawn3");
 						Location spawn4 = Game.getLocation("spawn4");
-						Game.rfirework(spawn1);
-						Game.rfirework(spawn2);
-						Game.rfirework(spawn3);
-						Game.rfirework(spawn4);
+						Game.Firework(spawn1);
+						Game.Firework(spawn2);
+						Game.Firework(spawn3);
+						Game.Firework(spawn4);
 					}
 					Countdown = newi;		
 	            }
@@ -401,6 +406,10 @@ public class Main extends JavaPlugin implements Listener {
 			String Label, String[] args){
 		if (sender instanceof Player){
 			Player p = (Player) sender;
+			if (Label.equalsIgnoreCase("test")){
+				p.sendMessage("testing");
+				Files.bs.addCoins(p, 20);
+			}
 			if (Label.equalsIgnoreCase("Leave") || Label.equalsIgnoreCase("Hub") || Label.equalsIgnoreCase("Spawn")){
 				sendPlayerToMain(p);
 			}
@@ -546,29 +555,6 @@ public class Main extends JavaPlugin implements Listener {
 			e.printStackTrace();
 		}
 		p.sendPluginMessage(Main.getPlugin(Main.class), "BungeeCord", b.toByteArray());
-	}
-	public void SendScoreChange(Player p, int number){
-		if (Bukkit.getOnlinePlayers().length == 100){
-		 ByteArrayDataOutput out = ByteStreams.newDataOutput();
-		  out.writeUTF("Forward");
-		  out.writeUTF("ALL");
-		  out.writeUTF("KnockoffScore");
-
-		  ByteArrayOutputStream msgbytes = new ByteArrayOutputStream();
-		  DataOutputStream msgout = new DataOutputStream(msgbytes);
-		  try {
-			msgout.writeUTF(p.getName());
-			  msgout.writeShort(number);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		  out.writeShort(msgbytes.toByteArray().length);
-		  out.write(msgbytes.toByteArray());
-		  p.sendPluginMessage(this, "BungeeCord", out.toByteArray());
-	}else{
-		
-	}
 	}
 
 }
