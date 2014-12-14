@@ -9,10 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
+import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.FireworkEffect.Type;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -163,7 +162,11 @@ public class Game {
 	
 	@SuppressWarnings("deprecation")
 	public static void playerWin(Player p){
-		Files.bs.addCoins(p, 35);
+		try {
+			Files.bs.addCoins(p, 35);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		p.removePotionEffect(PotionEffectType.JUMP);
 		p.getInventory().clear();
 		p.getInventory().setHelmet(new ItemStack(Material.AIR));

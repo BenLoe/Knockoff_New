@@ -184,14 +184,14 @@ public class Events implements Listener{
 	public void ontab(ServerListPingEvent event){
 		if (Main.GameState.equals("Waiting") || Main.GameState.equals("Starting")){
 			if (Main.NumberIngame != Files.config().getInt("Maxplayers")){
-				event.setMotd("§a§l[Join]");
+				event.setMotd(ChatColor.COLOR_CHAR + "c"+ChatColor.COLOR_CHAR+"l[Join]");
 			}else{
-				event.setMotd("§9§l[Full]");
+				event.setMotd(ChatColor.COLOR_CHAR + "9[Full]");
 			}
 		}else if (Main.GameState.equals("Win")){
-			event.setMotd("§4§lRESTARTING");
+			event.setMotd(ChatColor.COLOR_CHAR + "4"+ChatColor.COLOR_CHAR+"lRESTARTING");
 		}else{
-			event.setMotd("§7[In-Game]");
+			event.setMotd(ChatColor.COLOR_CHAR + "7[In-Game]");
 		}
 		}
 	@EventHandler

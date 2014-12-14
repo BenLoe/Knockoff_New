@@ -189,7 +189,7 @@ public class Main extends JavaPlugin {
 			}
 			}
 		}, 10l, 2l);
-		Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new Runnable(){
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 			public void run() {
 				if (getConfig().getBoolean("Enabled")){
 					for(Player p : Bukkit.getOnlinePlayers()){
@@ -218,9 +218,10 @@ public class Main extends JavaPlugin {
 					}
 					if (Countdown == 0){
 						for (Player p : Bukkit.getOnlinePlayers()){
+							PlayersIngame.add(p.getName());
 									p.sendMessage(tag + ChatColor.YELLOW + "Let the game begin!");
 									p.playSound(p.getLocation(), Sound.NOTE_PIANO, 1, 1);
-									BarAPI.setMessage(p, ChatColor.DARK_AQUA + "| Knockoff | " + ChatColor.YELLOW + "Game Starting!", 1);
+									/*BarAPI.set*/p.sendMessage(/*p,*/ ChatColor.DARK_AQUA + "| Knockoff | " + ChatColor.YELLOW + "Game Starting!"/*, 1*/);
 									Random r = new Random();
 									int i = r.nextInt(4) + 1;
 									int x = r.nextInt(1) + 1;
@@ -251,7 +252,7 @@ public class Main extends JavaPlugin {
 						Countdown = 5;
 					}else{
 						for (Player p : Bukkit.getOnlinePlayers()){
-									BarAPI.setMessage(p, ChatColor.DARK_AQUA + "| Knockoff | " + ChatColor.YELLOW + "Game starting in " + ChatColor.GREEN + Countdown + ChatColor.YELLOW + " seconds.", (float) 6.66 * Countdown);
+							BarAPI.setMessage(p, ChatColor.DARK_AQUA + "| Knockoff | " + ChatColor.YELLOW + "Game starting in " + ChatColor.GREEN + Countdown + ChatColor.YELLOW + " seconds.", (float) 6.66 * Countdown);
 						}
 						if (Countdown == 5 || Countdown == 4 || Countdown == 3 || Countdown == 2 || Countdown ==1){
 							for (Player p : Bukkit.getOnlinePlayers()){
@@ -293,7 +294,7 @@ public class Main extends JavaPlugin {
 				}
 				if (GameState.equals("Ingame")){
 					for (Player p : Bukkit.getOnlinePlayers()){
-								BarAPI.setMessage(p, ChatColor.DARK_AQUA + "| Knockoff | " + ChatColor.GREEN + NumberIngame + ChatColor.YELLOW + " Players remain!", 100F);
+						BarAPI.setMessage(p, ChatColor.DARK_AQUA + "| Knockoff | " + ChatColor.GREEN + NumberIngame + ChatColor.YELLOW + " Players remain!", 100F);
 					}
 					if (NumberIngame == 1){
 						for (Player p : Bukkit.getOnlinePlayers()){
@@ -330,7 +331,7 @@ public class Main extends JavaPlugin {
 									p1.sendMessage(ChatColor.AQUA + "Well... nobody won...");
 									p1.sendMessage("    ");
 									p1.sendMessage(ChatColor.AQUA + "✦" + ChatColor.GREEN + "------------------" + ChatColor.AQUA + "✦");
-									BarAPI.removeBar(p1);
+									//BarAPI.removeBar(p1);
 					}
 						for (int i = 0; i < blocks.size(); i++){
 							Location loc1 = blocks.get(i);
@@ -380,7 +381,7 @@ public class Main extends JavaPlugin {
 						}
 						NumberIngame = 0;
 						PlayersIngame.clear();
-						Bukkit.shutdown();
+						//Bukkit.shutdown();
 					}else if(newi > 3){
 						Location spawn1 = Game.getLocation("spawn1");
 						Location spawn2 = Game.getLocation("spawn2");
@@ -550,7 +551,7 @@ public class Main extends JavaPlugin {
 		DataOutputStream out = new DataOutputStream(b);
         try {
 			out.writeUTF("Connect");
-	        out.writeUTF("main");
+	        out.writeUTF("hub");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

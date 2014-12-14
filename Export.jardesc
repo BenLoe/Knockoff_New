@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="/Users/Matthew/Programming/workspace/workspace-bukkit/bukkit/plugins/KnockOff.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Knockoff_New/Export.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=Knockoff_New/src"/>
+        <file path="/Knockoff_New/.classpath"/>
+        <file path="/Knockoff_New/.DS_Store"/>
+        <file path="/Knockoff_New/.gitattributes"/>
+        <file path="/Knockoff_New/plugin.yml"/>
+        <file path="/Knockoff_New/config.yml"/>
+        <file path="/Knockoff_New/.gitignore"/>
+        <file path="/Knockoff_New/.project"/>
+    </selectedElements>
+</jardesc>
