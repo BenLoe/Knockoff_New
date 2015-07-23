@@ -1,11 +1,9 @@
 package org.BeefSupreme.Main;
 
-import java.util.Random;
 
 import org.BeefSupreme.Kit.Bomber;
 import org.BeefSupreme.Kit.Hulk;
 import org.BeefSupreme.Kit.Miner;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -42,26 +40,9 @@ public class Events implements Listener{
 		}
 		if (Main.GameState.equals("Waiting") || Main.GameState.equals("Starting")){
 			if (Main.NumberIngame == Files.config().getInt("Maxplayers")){
-				if (p.hasPermission("Game.joinfull")){
-					for (Player p1 : Bukkit.getOnlinePlayers()){
-						if (!p1.hasPermission("Game.joinfull")){
-							for (; ;){
-						Random r = new Random();
-						int player = r.nextInt(Bukkit.getOnlinePlayers().length);
-						Player p2 = Bukkit.getOnlinePlayers()[player];
-						if (!p2.hasPermission("Game.joinfull")){
-							p2.sendMessage(ChatColor.RED + "You have been sent to the main server to make room for a vip or staff member.");
-							Main.sendPlayerToMain(p2);
-							break;
-						}
-						}
-						return;
-						}
-					}
-					event.disallow(Result.KICK_OTHER, "Game is full of vips or staff members, please choose another.");
-				}else{
-					event.disallow(Result.KICK_OTHER, "Game full, to join full games you must buy vip.");
-				}
+					event.disallow(Result.KICK_OTHER, "Game full!");
+			}else{
+				Main.PlayersIngame.add(p.getName());
 			}
 		}
 	}
@@ -184,7 +165,7 @@ public class Events implements Listener{
 	public void ontab(ServerListPingEvent event){
 		if (Main.GameState.equals("Waiting") || Main.GameState.equals("Starting")){
 			if (Main.NumberIngame != Files.config().getInt("Maxplayers")){
-				event.setMotd(ChatColor.COLOR_CHAR + "c"+ChatColor.COLOR_CHAR+"l[Join]");
+				event.setMotd(ChatColor.COLOR_CHAR + "c"+ ChatColor.COLOR_CHAR + "l[Join]");
 			}else{
 				event.setMotd(ChatColor.COLOR_CHAR + "9[Full]");
 			}

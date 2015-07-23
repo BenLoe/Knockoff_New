@@ -91,7 +91,7 @@ public class Main extends JavaPlugin {
 				}
 				}
 				if (HulkSmash.contains(p.getName())){
-					ParticleEffect.ANGRY_VILLAGER.display(p.getLocation().add(0, 1, 0), 16, 1, 1, 1, 1, 5);
+					ParticleEffect.VILLAGER_ANGRY.display(2f, 2f, 2f, 0.5f, 5, p.getLocation(), 20);
 				}
 				}
 				for(Sheep sheep : SheepBlowup.keySet()){
@@ -198,7 +198,7 @@ public class Main extends JavaPlugin {
 						}
 					}
 				if (GameState.equals("Waiting")){
-					NumberIngame = Bukkit.getOnlinePlayers().length;
+					NumberIngame = Bukkit.getOnlinePlayers().size();
 					if (NumberIngame >= getConfig().getInt("Playerstostart")){
 						GameState = "Starting";
 						for (Player p : Bukkit.getOnlinePlayers()){

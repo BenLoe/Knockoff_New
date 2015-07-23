@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="/Users/Matthew/Programming/workspace/workspace-bukkit/bukkit/plugins/BeefSupreme.jar"/>
-	<classpathentry kind="lib" path="/Users/Matthew/Programming/workspace/workspace-bukkit/bukkit/versions/craftbukkit-1.7.9-R0.2.jar"/>
-	<classpathentry kind="lib" path="/Users/Matthew/Programming/workspace/workspace-bukkit/bukkit/plugins/BarAPI (2).jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ben/Desktop/ALL DE STUFF/Immunity games/plugins/BeefSupreme.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ben/Desktop/ALL DE STUFF/Immunity games/plugins/BarAPI (2).jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ben/Desktop/ALL DE STUFF/Spigot/spigot-1.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

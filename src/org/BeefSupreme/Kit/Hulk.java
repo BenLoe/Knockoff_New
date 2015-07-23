@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.BeefSupreme.Main.Main;
 import org.BeefSupreme.Main.ParticleEffect;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -83,64 +84,64 @@ public class Hulk {
 						Block b = loc1.getBlock();
 						if (loc1.getY() == loc.getY() && !(loc1.getBlockX() == bX && loc1.getBlockZ() == bZ)){
 						loc1.getWorld().spawnFallingBlock(loc1.add(0, 1, 0), b.getType() , b.getData()).setVelocity(new Vector(0, 0.4, 0));
-						ParticleEffect.displayBlockCrack(b.getLocation(), b.getTypeId(), b.getData(), 0.2f, 0.2f, 0.2f, 10);
-						p.playSound(p.getLocation(), Sound.ANVIL_LAND, 1f, 1f);
+						ParticleEffect.BLOCK_CRACK.display(new ParticleEffect.BlockData(b.getType(), b.getData()), 1f, 1f, 1f, 1f, 20, loc1, 20);
+						p.playSound(p.getLocation(), Sound.ANVIL_LAND, 0.5f, 1f);
 						b.setType(Material.AIR);
 					}
 				}
 			}
 		}
 	}
-		ParticleEffect.SLIME.display(loc.add(0, 5, 0), 15, 3, 0, 3, 0.5f, 100);
-		ParticleEffect.SLIME.display(loc.add(0, 5, 0), 15, 3, 0, 3, 0.5f, 100);
-		ParticleEffect.SLIME.display(loc.add(0, 5, 0), 15, 3, 0, 3, 0.5f, 100);
-}
+		ParticleEffect.SLIME.display(5f, 5f, 5f, 0.5f, 20, loc.clone().add(0, 2, 0), 20);
+		ParticleEffect.SLIME.display(5f, 5f, 5f, 0.5f, 20, loc.clone().add(0, 2, 0), 20);
+		ParticleEffect.SLIME.display(5f, 5f, 5f, 0.5f, 20, loc.clone().add(0, 2, 0), 20);
+	}
 	
 	@SuppressWarnings("deprecation")
 	public static void executeSpecial(Location loc, Egg egg){
 		World world = loc.getWorld();
-		Location mid = loc.add(0, -1, 0);
-		Location side1 = loc.add(1, -1, 0);
-		Location side2 = loc.add(-1, -1, 1);
-		Location side3 = loc.add(0, -1, 1);
-		Location side4 = loc.add(1, -1, 1);
-		Location side5 = loc.add(-1, -1, 0);
-		Location side6 = loc.add(0, -1, -1);
-		Location side7 = loc.add(-1, -1, -1);
-		Location side8 = loc.add(1, -1, -1);
-		Location out1 = loc.add(2, -1, 0);
-		Location out12 = loc.add(2, -1, 1);
-		Location out2 = loc.add(2, -1, -1);
-		Location out3 = loc.add(0, -1, 2);
-		Location out4 = loc.add(1, -1, 2);
-		Location out5 = loc.add(-1, -1, 2);
-		Location out6 = loc.add(-2, -1, 1);
-		Location out7 = loc.add(-2, -1, 0);
-		Location out8 = loc.add(-2, -1, -1);
-		Location out9 = loc.add(1, -1, -2);
-		Location out10 = loc.add(0, -1, -2);
-		Location out11 = loc.add(-1, -1, -2);
-		world.spawnFallingBlock(mid.add(0, 1, 0), mid.getBlock().getType(), mid.getBlock().getData()).setVelocity(new Vector(0, 1, 0));
-		world.spawnFallingBlock(side1.add(0, 1, 0), side1.getBlock().getType(), side1.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
-		world.spawnFallingBlock(side2.add(0, 1, 0), side2.getBlock().getType(), side2.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
-		world.spawnFallingBlock(side3.add(0, 1, 0), side3.getBlock().getType(), side3.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
-		world.spawnFallingBlock(side4.add(0, 1, 0), side4.getBlock().getType(), side4.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
-		world.spawnFallingBlock(side5.add(0, 1, 0), side5.getBlock().getType(), side5.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
-		world.spawnFallingBlock(side6.add(0, 1, 0), side6.getBlock().getType(), side6.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
-		world.spawnFallingBlock(side7.add(0, 1, 0), side7.getBlock().getType(), side7.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
-		world.spawnFallingBlock(side8.add(0, 1, 0), side8.getBlock().getType(), side8.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
-		world.spawnFallingBlock(out1.add(0, 1, 0), out1.getBlock().getType(), out1.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out2.add(0, 1, 0), out2.getBlock().getType(), out2.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out3.add(0, 1, 0), out3.getBlock().getType(), out3.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out4.add(0, 1, 0), out4.getBlock().getType(), out4.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out5.add(0, 1, 0), out5.getBlock().getType(), out5.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out6.add(0, 1, 0), out6.getBlock().getType(), out6.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out7.add(0, 1, 0), out7.getBlock().getType(), out7.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out8.add(0, 1, 0), out8.getBlock().getType(), out8.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out9.add(0, 1, 0), out9.getBlock().getType(), out9.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out10.add(0, 1, 0), out10.getBlock().getType(), out10.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out11.add(0, 1, 0), out11.getBlock().getType(), out11.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
-		world.spawnFallingBlock(out12.add(0, 1, 0), out12.getBlock().getType(), out12.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		Location mid = loc.clone().add(0, -1, 0);
+		Location side1 = loc.clone().add(1, -1, 0);
+		Location side2 = loc.clone().add(-1, -1, 1);
+		Location side3 = loc.clone().add(0, -1, 1);
+		Location side4 = loc.clone().add(1, -1, 1);
+		Location side5 = loc.clone().add(-1, -1, 0);
+		Location side6 = loc.clone().add(0, -1, -1);
+		Location side7 = loc.clone().add(-1, -1, -1);
+		Location side8 = loc.clone().add(1, -1, -1);
+		Location out1 = loc.clone().add(2, -1, 0);
+		Location out12 = loc.clone().add(2, -1, 1);
+		Location out2 = loc.clone().add(2, -1, -1);
+		Location out3 = loc.clone().add(0, -1, 2);
+		Location out4 = loc.clone().add(1, -1, 2);
+		Location out5 = loc.clone().add(-1, -1, 2);
+		Location out6 = loc.clone().add(-2, -1, 1);
+		Location out7 = loc.clone().add(-2, -1, 0);
+		Location out8 = loc.clone().add(-2, -1, -1);
+		Location out9 = loc.clone().add(1, -1, -2);
+		Location out10 = loc.clone().add(0, -1, -2);
+		Location out11 = loc.clone().add(-1, -1, -2);
+		world.spawnFallingBlock(mid.clone().add(0, 1, 0), mid.getBlock().getType(), mid.getBlock().getData()).setVelocity(new Vector(0, 1, 0));
+		world.spawnFallingBlock(side1.clone().add(0, 1, 0), side1.getBlock().getType(), side1.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
+		world.spawnFallingBlock(side2.clone().add(0, 1, 0), side2.getBlock().getType(), side2.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
+		world.spawnFallingBlock(side3.clone().add(0, 1, 0), side3.getBlock().getType(), side3.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
+		world.spawnFallingBlock(side4.clone().add(0, 1, 0), side4.getBlock().getType(), side4.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
+		world.spawnFallingBlock(side5.clone().add(0, 1, 0), side5.getBlock().getType(), side5.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
+		world.spawnFallingBlock(side6.clone().add(0, 1, 0), side6.getBlock().getType(), side6.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
+		world.spawnFallingBlock(side7.clone().add(0, 1, 0), side7.getBlock().getType(), side7.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
+		world.spawnFallingBlock(side8.clone().add(0, 1, 0), side8.getBlock().getType(), side8.getBlock().getData()).setVelocity(new Vector(0, 0.7, 0));
+		world.spawnFallingBlock(out1.clone().add(0, 1, 0), out1.getBlock().getType(), out1.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out2.clone().add(0, 1, 0), out2.getBlock().getType(), out2.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out3.clone().add(0, 1, 0), out3.getBlock().getType(), out3.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out4.clone().add(0, 1, 0), out4.getBlock().getType(), out4.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out5.clone().add(0, 1, 0), out5.getBlock().getType(), out5.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out6.clone().add(0, 1, 0), out6.getBlock().getType(), out6.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out7.clone().add(0, 1, 0), out7.getBlock().getType(), out7.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out8.clone().add(0, 1, 0), out8.getBlock().getType(), out8.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out9.clone().add(0, 1, 0), out9.getBlock().getType(), out9.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out10.clone().add(0, 1, 0), out10.getBlock().getType(), out10.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out11.clone().add(0, 1, 0), out11.getBlock().getType(), out11.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
+		world.spawnFallingBlock(out12.clone().add(0, 1, 0), out12.getBlock().getType(), out12.getBlock().getData()).setVelocity(new Vector(0, 0.5, 0));
 		mid.getBlock().setType(Material.AIR);
 		side1.getBlock().setType(Material.AIR);
 		side2.getBlock().setType(Material.AIR);
@@ -164,7 +165,10 @@ public class Hulk {
 		out12.getBlock().setType(Material.AIR);
 		for (Entity e : egg.getNearbyEntities(4.0, 4.0, 4.0)){
 			if (e.getType().equals(EntityType.PLAYER)){
-				e.setVelocity(e.getVelocity().setY(1.5));
+				Location midPoint = loc;
+				Vector direction = e.getLocation().toVector().subtract(midPoint.toVector()).normalize();
+				direction.multiply(0.8).setY(1.25);
+				e.setVelocity(direction);
 			}
 		}
 	}
@@ -172,32 +176,30 @@ public class Hulk {
 		ItemStack stick = new ItemStack(Material.STICK);
 		ItemMeta stickm = stick.getItemMeta();
 		stickm.addEnchant(Enchantment.KNOCKBACK, 1, false);
-		stickm.setDisplayName("Â§bStick of Knockback");
+		stickm.setDisplayName("§bStick of Knockback");
 		List<String> lore = new ArrayList<String>();
-		lore.add("Â§eUse this stick to knock");
-		lore.add("Â§epeople off the map, remember");
-		lore.add("Â§ethat you have a Â§a%3 Â§echance");
-		lore.add("Â§eof doing double knockback.");
+		lore.add("§eUse this stick to knock");
+		lore.add("§epeople off the map.");
 		stickm.setLore(lore);
 		stick.setItemMeta(stickm);
 		p.getInventory().addItem(stick);
 		ItemStack sword = new ItemStack(Material.IRON_SWORD);
 		ItemMeta swordm = sword.getItemMeta();
-		swordm.setDisplayName("Â§bHulk's Skill");
+		swordm.setDisplayName("§bHulk's Skill");
 		lore.clear();
-		lore.add("Â§eRight click to be thrown");
-		lore.add("Â§eup into air and to");
-		lore.add("Â§esmash down.");
+		lore.add("§eRight click to be thrown");
+		lore.add("§eup into air and to");
+		lore.add("§esmash down.");
 		swordm.setLore(lore);
 		sword.setItemMeta(swordm);
 		p.getInventory().addItem(sword);
 		ItemStack egg = new ItemStack(Material.EGG, 2);
 		ItemMeta eggm = egg.getItemMeta();
-		eggm.setDisplayName("Â§bHulk's Special Skill");
+		eggm.setDisplayName("§bHulk's Special Skill");
 		lore.clear();
-		lore.add("Â§eThrow this egg to make");
-		lore.add("Â§ea mountain of blocks fly");
-		lore.add("Â§eup throwing players around.");
+		lore.add("§eThrow this egg to make");
+		lore.add("§ea mountain of blocks fly");
+		lore.add("§eup throwing players around.");
 		eggm.setLore(lore);
 		egg.setItemMeta(eggm);
 		p.getInventory().addItem(egg);

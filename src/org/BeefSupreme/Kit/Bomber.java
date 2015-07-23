@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Random;
 
 import org.BeefSupreme.Main.Main;
+import org.BeefSupreme.Main.ParticleEffect;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -43,7 +46,7 @@ public class Bomber {
 		p.sendMessage(ChatColor.BOLD + "Special Skill: " + ChatColor.YELLOW + "Spawns a ''Bomber Sheep'' that blows up and throws blocks everywhere.");
 		p.sendMessage("    ");
 		p.sendMessage(ChatColor.GREEN + "------------------------------------");
-		if (p.hasPermission("knock.Bomber")){
+		if (p.hasPermission("Knock.Bomber")){
 		Main.Kit.remove(p.getName());
 		Main.Kit.put(p.getName(), "Bomber");
 			p.sendMessage(Main.tag + ChatColor.AQUA + "Kit set to: " + ChatColor.YELLOW + "Bomber");
@@ -59,57 +62,63 @@ public class Bomber {
 		}else{
 		Main.Cooldown.add(p.getName());
 		p.setExp(1F);
-int x = p.getLocation().getBlockX();
-int y = p.getLocation().getBlockY();
-int z = p.getLocation().getBlockZ();
-final List<Location> Blocks = new ArrayList<Location>();
-Location loc1 = new Location(p.getWorld(), x, y - 1, z);
-Location loc2 = new Location(p.getWorld(), x + 1, y - 1, z);
-Location loc3 = new Location(p.getWorld(), x, y - 1, z + 1);
-Location loc4 = new Location(p.getWorld(), x + 1, y - 1, z + 1);
-Location loc5 = new Location(p.getWorld(), x - 1, y - 1, z);
-Location loc6 = new Location(p.getWorld(), x, y - 1, z - 1);
-Location loc7 = new Location(p.getWorld(), x - 1, y - 1, z - 1);
-Location loc8 = new Location(p.getWorld(), x + 1, y - 1, z - 1);
-Location loc9 = new Location(p.getWorld(), x - 1, y - 1, z + 1);
-Blocks.add(loc1);
-Blocks.add(loc2);
-Blocks.add(loc3);
-Blocks.add(loc4);
-Blocks.add(loc5);
-Blocks.add(loc6);
-Blocks.add(loc7);
-Blocks.add(loc8);
-Blocks.add(loc9);
-for (Location loc : Blocks){
-	Block b = loc.getBlock();
-	Random r = new Random();
-	int chance = r.nextInt(2) + 1;
-	if (!b.getType().equals(Material.AIR) && chance == 1){
-		float x1 = (float) -0.5 + (float) (Math.random() * ((0.5 - -0.5) + 1));
-		float z1 = (float) -0.5 + (float) (Math.random() * ((0.5 - -0.5) + 1));
-			FallingBlock falling = p.getWorld().spawnFallingBlock(loc.add(0, 1, 0), b.getType(), b.getData());
-			falling.setVelocity(new Vector(x1, 1, z1));
-			falling.setDropItem(false);
-		b.setType(Material.AIR);
-		Firework(loc);
-	}
-}
-for (Entity e : p.getNearbyEntities(3, 3, 3)){
-	if (e instanceof LivingEntity){
-		e.setVelocity(e.getVelocity().setY(1.3));
-	}
-}
-p.setVelocity(p.getVelocity().setY(1.3));
-
-	}
+		int x = p.getLocation().getBlockX();
+		int y = p.getLocation().getBlockY();
+		int z = p.getLocation().getBlockZ();
+		final List<Location> Blocks = new ArrayList<Location>();
+		Location loc1 = new Location(p.getWorld(), x, y - 1, z);
+		Location loc2 = new Location(p.getWorld(), x + 1, y - 1, z);
+		Location loc3 = new Location(p.getWorld(), x, y - 1, z + 1);
+		Location loc4 = new Location(p.getWorld(), x + 1, y - 1, z + 1);
+		Location loc5 = new Location(p.getWorld(), x - 1, y - 1, z);
+		Location loc6 = new Location(p.getWorld(), x, y - 1, z - 1);
+		Location loc7 = new Location(p.getWorld(), x - 1, y - 1, z - 1);
+		Location loc8 = new Location(p.getWorld(), x + 1, y - 1, z - 1);
+		Location loc9 = new Location(p.getWorld(), x - 1, y - 1, z + 1);
+		Blocks.add(loc1);
+		Blocks.add(loc2);
+		Blocks.add(loc3);
+		Blocks.add(loc4);
+		Blocks.add(loc5);
+		Blocks.add(loc6);
+		Blocks.add(loc7);
+		Blocks.add(loc8);
+		Blocks.add(loc9);
+		for (Location loc : Blocks){
+			Block b = loc.getBlock();
+			Random r = new Random();
+			int chance = r.nextInt(2) + 1;
+			if (!b.getType().equals(Material.AIR) && chance == 1){
+				float x1 = (float) -0.5 + (float) (Math.random() * ((0.5 - -0.5) + 1));
+				float z1 = (float) -0.5 + (float) (Math.random() * ((0.5 - -0.5) + 1));
+				FallingBlock falling = p.getWorld().spawnFallingBlock(loc.add(0, 1, 0), b.getType(), b.getData());
+				falling.setVelocity(new Vector(x1, 1, z1));
+				falling.setDropItem(false);
+				b.setType(Material.AIR);
+				Firework(loc.clone().subtract(0, 1, 0));
+				ParticleEffect.EXPLOSION_LARGE.display(0.5f, 0.5f, 0.5f, 1f, 3, loc, 25);
+			}
+		}
+		for (Entity e : p.getNearbyEntities(3, 3, 3)){
+			if (e instanceof LivingEntity){
+				Location midPoint = p.getLocation();
+				Vector direction = e.getLocation().toVector().subtract(midPoint.toVector()).normalize();
+				direction.multiply(0.5).setY(1.25);
+				e.setVelocity(direction);
+			}
+		}
+		for (Player p2 : Bukkit.getOnlinePlayers()){
+			p2.playSound(p.getLocation(), Sound.EXPLODE, 1f, 1f);
+		}
+		p.setVelocity(p.getVelocity().setY(1.3));
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
 	public static void executeSpecial(Location loc){
 		LivingEntity e = loc.getWorld().spawnCreature(loc, EntityType.SHEEP);
 		Sheep sheep = (Sheep) e;
-		e.setCustomName("Â§4Â§lBOMBER SHEEP!");
+		e.setCustomName("§4§lBOMBER SHEEP!");
 		e.setCustomNameVisible(true);
 		sheep.setSheared(true);
 		Main.SheepBlowup.put(sheep, 15);
@@ -119,12 +128,10 @@ p.setVelocity(p.getVelocity().setY(1.3));
 		ItemStack stick = new ItemStack(Material.STICK);
 		ItemMeta stickm = stick.getItemMeta();
 		stickm.addEnchant(Enchantment.KNOCKBACK, 1, false);
-		stickm.setDisplayName("Â§bStick of Knockback");
+		stickm.setDisplayName("§bStick of Knockback");
 		List<String> lore = new ArrayList<String>();
-		lore.add("Â§eUse this stick to knock");
-		lore.add("Â§epeople off the map, remember");
-		lore.add("Â§ethat you have a Â§a%3 Â§echance");
-		lore.add("Â§eof doing double knockback.");
+		lore.add("§eUse this stick to knock");
+		lore.add("§epeople off the map.");
 		stickm.setLore(lore);
 		stick.setItemMeta(stickm);
 		p.getInventory().addItem(stick);
@@ -132,11 +139,11 @@ p.setVelocity(p.getVelocity().setY(1.3));
 		ItemMeta swordm = sword.getItemMeta();
 		swordm.setDisplayName("Â§bBombers Skill");
 		lore.clear();
-		lore.add("Â§eRight click the ground");
-		lore.add("Â§eto make a small explosion");
-		lore.add("Â§eat your feet that will break");
-		lore.add("Â§ea few blocks and launch up");
-		lore.add("Â§enearby players!");
+		lore.add("§eRight click the ground");
+		lore.add("§eto make a small explosion");
+		lore.add("§eat your feet that will break");
+		lore.add("§ea few blocks and launch up");
+		lore.add("§enearby players!");
 		swordm.setLore(lore);
 		sword.setItemMeta(swordm);
 		p.getInventory().addItem(sword);
@@ -144,10 +151,10 @@ p.setVelocity(p.getVelocity().setY(1.3));
 		ItemMeta eggm = egg.getItemMeta();
 		eggm.setDisplayName("Â§bBombers Special Skill");
 		lore.clear();
-		lore.add("Â§eThrow an egg to spawn a");
-		lore.add("Â§aBomber Sheep Â§ethat will blink");
-		lore.add("Â§ered and then explode launching");
-		lore.add("Â§eblocks everywhere.");
+		lore.add("§eThrow an egg to spawn a");
+		lore.add("§aBomber Sheep Â§ethat will blink");
+		lore.add("§ered and then explode launching");
+		lore.add("§eblocks everywhere.");
 		eggm.setLore(lore);
 		egg.setItemMeta(eggm);
 		p.getInventory().addItem(egg);
@@ -170,7 +177,7 @@ p.setVelocity(p.getVelocity().setY(1.3));
 			f1 = fwm.getClass().getDeclaredField("power");
 			f1.setAccessible(true);
 			try {
-				f1.set(fwm, -2);
+				f1.set(fwm, -1);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {

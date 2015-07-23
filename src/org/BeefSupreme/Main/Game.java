@@ -62,7 +62,7 @@ public class Game {
 		Main.NumberIngame = Main.NumberIngame + 1;
 		Main.Kit.put(p.getName(), "Miner");
 		Main.score.put(p.getName(), 0);
-		sendMessage(Main.tag + ChatColor.YELLOW + p.getName() + " joined " + ChatColor.AQUA + "(" + ChatColor.YELLOW + Bukkit.getOnlinePlayers().length + ChatColor.AQUA + "/" + ChatColor.YELLOW + Files.config().getInt("Maxplayers") + ChatColor.AQUA + ").");
+		sendMessage(Main.tag + ChatColor.YELLOW + p.getName() + " joined " + ChatColor.AQUA + "(" + ChatColor.YELLOW + Bukkit.getOnlinePlayers().size() + ChatColor.AQUA + "/" + ChatColor.YELLOW + Files.config().getInt("Maxplayers") + ChatColor.AQUA + ").");
 		if (Main.GameState.equals("Waiting") && Main.NumberIngame >= Files.config().getInt("Playerstostart")){
 			Main.GameState = "Starting";
 			sendMessage(Main.tag + ChatColor.AQUA + "Game starting in 15 seconds.");

@@ -50,7 +50,7 @@ public class Miner {
 	for (Block b : p.getLineOfSight(null, 20)){
 		if (!b.getType().equals(Material.AIR)){
 			p.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-			ParticleEffect.displayBlockCrack(b.getLocation(), b.getTypeId(), b.getData(), 0.2f, 0.2f, 0.2f, 80);
+			ParticleEffect.BLOCK_CRACK.display(new ParticleEffect.BlockData(b.getType(), b.getData()), 1f, 1f, 1f, 0.5f, 20, b.getLocation(), 20);
 			b.setType(Material.AIR);
 				p.setExp(p.getExp() - 0.20f);
 			break;
@@ -88,10 +88,8 @@ public class Miner {
 		stickm.addEnchant(Enchantment.KNOCKBACK, 1, false);
 		stickm.setDisplayName("Â§bStick of Knockback");
 		List<String> lore = new ArrayList<String>();
-		lore.add("Â§eUse this stick to knock");
-		lore.add("Â§epeople off the map, remember");
-		lore.add("Â§ethat you have a Â§a%3 Â§echance");
-		lore.add("Â§eof doing double knockback.");
+		lore.add("§eUse this stick to knock");
+		lore.add("§epeople off the map.");
 		stickm.setLore(lore);
 		stick.setItemMeta(stickm);
 		p.getInventory().addItem(stick);
@@ -99,9 +97,9 @@ public class Miner {
 		ItemMeta swordm = sword.getItemMeta();
 		swordm.setDisplayName("Â§bMiners Skill");
 		lore.clear();
-		lore.add("Â§eAim at a block and");
-		lore.add("Â§eright click to mine");
-		lore.add("Â§ethe block.");
+		lore.add("§eAim at a block and");
+		lore.add("§eright click to mine");
+		lore.add("§ethe block.");
 		swordm.setLore(lore);
 		sword.setItemMeta(swordm);
 		p.getInventory().addItem(sword);
@@ -109,9 +107,9 @@ public class Miner {
 		ItemMeta eggm = egg.getItemMeta();
 		eggm.setDisplayName("Â§bMiners Special Skill");
 		lore.clear();
-		lore.add("Â§eThrow this egg to make");
-		lore.add("Â§ea 3x3 square that will randomly");
-		lore.add("Â§ebe mined slowely.");
+		lore.add("§eThrow this egg to make");
+		lore.add("§ea 3x3 square that will randomly");
+		lore.add("§ebe mined slowely.");
 		eggm.setLore(lore);
 		egg.setItemMeta(eggm);
 		p.getInventory().addItem(egg);
